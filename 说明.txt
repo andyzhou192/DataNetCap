@@ -1,0 +1,7 @@
+1、解压JavaNetCap-bin.zip到本地目录；
+2、首次使用请先执行install.bat脚本安装winpcap和jpcap；
+3、将software目录下的Jpcap.dll和jpcap.jar文件分别复制到jdk安装目录下的jre/bin和jre/lib/ext目录下；
+4、执行Startup.bat启动应用；
+5、在Ethernet下的下拉选择框中选择抓包的网卡；
+6、在Capture URL下的文本域中输入待抓取的ip或url，多个ip或url用英文逗号隔开，不填写时表示抓取这个网卡的所有HTTP包；
+7、点击Apply按钮开始抓包（点击后下面的状态栏会显示为运行状态）。
