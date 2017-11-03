@@ -30,6 +30,7 @@ public class CaptureThread implements Runnable {
      * 开始
      */
     public void start(){
+    	LogUtil.console(cl, "Starting " +  threadName );
     	LogUtil.debug(cl, "Starting " +  threadName );
 		PacketReceiverImpl.STATUS = 1;
         stopped = false;

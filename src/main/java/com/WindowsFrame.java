@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -14,16 +12,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import com.netcap.DataCache;
 import com.netcap.captor.CaptureThread;
-import com.netcap.captor.NetCaptor;
-import com.netcap.handler.UploadToService;
 import com.view.util.StatusProgressPanel;
 import com.view.util.ViewModules;
 
 import info.clearthought.layout.TableLayout;
 
 @SuppressWarnings("serial")
-public class MainFrame extends JFrame implements ActionListener {
+public class WindowsFrame extends JFrame implements ActionListener {
 
 	public StatusProgressPanel progress;
 	
@@ -38,20 +35,13 @@ public class MainFrame extends JFrame implements ActionListener {
 	
 	private JButton applyButton;
 
-	public static Map<String, Object> projectMap;
-	public static String projectName;
-	public static String netDevicesName;
-	public static String captureUrl;
 	
-	public MainFrame() {
+	public WindowsFrame() {
 		super();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(600, 300);
 		progress = new StatusProgressPanel();
 		this.getContentPane().add(progress, BorderLayout.SOUTH);
-		
-		projectMap = UploadToService.getProjectMap();
-		projectName = String.valueOf(projectMap.values().toArray()[0]);
 		
 		JPanel panel = new JPanel();
 		//panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -65,8 +55,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		ethernetLabel.setToolTipText("请选择网卡");
 		urlLabel = ViewModules.createJLabel("Capture Url:(Multiple addresses are separated by ',')", Color.BLACK);
 		urlLabel.setToolTipText("请填写待捕获的URL");
-		projectJComboBox = ViewModules.createComboBox(projectMap.values().toArray());
-		netJComboBox = ViewModules.createComboBox(NetCaptor.devicesMap.keySet().toArray());
+		projectJComboBox = ViewModules.createComboBox(DataCache.projectMap.values().toArray());
+		netJComboBox = ViewModules.createComboBox(DataCache.devicesMap.keySet().toArray());
 		urlFilterArea = new JTextArea(3, 20);
 		urlFilterArea.setEditable(true);
 		urlFilterArea.setLineWrap(true);
@@ -85,15 +75,13 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent evt) {
-		projectName = projectJComboBox.getSelectedItem().toString();
-		netDevicesName = netJComboBox.getSelectedItem().toString();
-		captureUrl = urlFilterArea.getText();
+		String projectName = projectJComboBox.getSelectedItem() == null ? null : projectJComboBox.getSelectedItem().toString();
+		DataCache.setProjectName(projectName);
+		String deviceName = netJComboBox.getSelectedItem() == null ? null : netJComboBox.getSelectedItem().toString();
+		DataCache.setNetDevicesName(deviceName);
+		DataCache.setCaptureUrl(urlFilterArea.getText());
 		new CaptureThread("CaptureThread").start();
 		this.progress.startProgress("Starting...");
-	}
-	
-	public static void main(String[] args) {
-		new MainFrame();
 	}
 	
 }

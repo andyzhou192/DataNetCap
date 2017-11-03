@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import com.common.util.LogUtil;
 import com.common.util.StringUtil;
 import com.generator.bean.DataForJavaBean;
+import com.netcap.DataCache;
 import com.protocol.http.HttptHelper;
-import com.MainFrame;
 
 public class DataQueues {
 	private static Class<?> cl = DataQueues.class;
@@ -40,10 +40,10 @@ public class DataQueues {
     	 */
         public void dataProcess(){
         	DataForJavaBean bean = HttptHelper.getDataBean(reqData, rspData);
-        	bean.setProjectId(UploadToService.getProjectId());
+        	bean.setProjectId(ConnectToPlatform.getProjectId());
         	if (bean != null && isValidReq(bean.getUrl())) {
             	LogUtil.debug(cl, bean.toJson());
-            	UploadToService.upload(bean);
+            	ConnectToPlatform.uploadData(bean);
             }
         }
     }
@@ -54,7 +54,7 @@ public class DataQueues {
      * @return
      */
     public static boolean isValidReq(String url){
-    	String captureUrl = MainFrame.captureUrl;
+    	String captureUrl = DataCache.getCaptureUrl();
     	if(null == url || url.endsWith(".js") || url.endsWith(".css") || url.endsWith(".png") || url.endsWith(".jpg") || url.endsWith(".jpeg") || url.endsWith(".gif")){
     		return false;
     	}else {

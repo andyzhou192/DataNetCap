@@ -28,6 +28,8 @@ public final class Constants {
 	public final static String AND = "&";
 	public final static String VERTICAL_LINE = "\\|";
 	
+	public final static String OS_NAME = System.getProperty("os.name");
+	public final static String OS_ARCH = System.getProperty("os.arch");
 
 	public static URL ADD_ICON = Constants.class.getClass().getResource("/img/Add.png");
 	public static URL ADD_SCRIPT_ICON = Constants.class.getClass().getResource("/img/AddScript.png");

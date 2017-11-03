@@ -83,7 +83,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>JavaNetCap</finalName>
+		<finalName>DataNetCap</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>
 			<!-- Control resource file copy -->
@@ -126,7 +126,7 @@
 								party jar into the Lib directory, so the classpath prefix is lib/ -->
 							<classpathPrefix>lib/</classpathPrefix>
 							<!-- application's main class -->
-							<mainClass>com.MainFrame</mainClass>
+							<mainClass>com.Main</mainClass>
 						</manifest>
 						<!-- 给清单文件添加键值对(配置文件外置) -->
 						<manifestEntries>
