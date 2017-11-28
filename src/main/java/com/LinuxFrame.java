@@ -55,6 +55,6 @@ public class LinuxFrame {
 			DataCache.setProjectName(projectMap.get(Integer.valueOf(str2)));
 		}
 
-		new CaptureThread("CaptureThread").start();
+		CaptureThread.getInstance("CaptureThread").start();
 	}
 }

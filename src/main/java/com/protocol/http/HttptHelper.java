@@ -173,7 +173,7 @@ public class HttptHelper {
 	 * @param data
 	 **/
 	public static boolean isFirstResponse(String data){
-		if(data.length() > 1){
+		if(!StringUtil.isEmpty(data) && data.trim().length() > 1){
 			if(data.split(HttptHelper.SP)[0].trim().equals("HTTP/1.1")){
 				return true;
 			}

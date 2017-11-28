@@ -11,7 +11,7 @@ public class PacketReceiverImpl implements PacketReceiver {
 	
 	private Thread packetHandlerThread = null;
 	static int index = 1;
-	public static int STATUS = 1;
+	public volatile static int STATUS = 1;
 	
 	public PacketReceiverImpl(){
 	}

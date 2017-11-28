@@ -6,39 +6,60 @@ public class CaptureThread implements Runnable {
 	private Class<?> cl = CaptureThread.class;
 
 	private NetCaptor captor;
-	public Thread t;
+	public static Thread T;
     private String threadName;
-    private boolean stopped = false;
+    private volatile boolean stopped = false;
+    private String control = "";//只是任意的实例化一个对象而已,用到Object的wait()方法和notify()和notifyAll()方法控制线程暂停
+    private volatile boolean suspend = false;//线程暂停标识
     
-    public CaptureThread(String threadName){
+    private static CaptureThread capture;
+    
+	public void setSuspend(boolean suspend) {
+        this.suspend = suspend;
+	}
+
+	public void setStopped(boolean stopped) {
+		this.stopped = stopped;
+	}
+
+	private CaptureThread(String threadName){
         this.threadName = threadName;
         this.captor = new NetCaptor();
     }
+	
+	public static CaptureThread getInstance(String threadName){
+		if(null == capture){
+			capture = new CaptureThread(threadName);
+		}
+		return capture;
+	}
 
     public void run() {
-    	synchronized(this) {
+    	synchronized(control) {
     		while(!stopped) {
-    			int packetNum = captor.startCaptor();
-    			LogUtil.console(cl, "received packet number : " + packetNum);
-    			LogUtil.console(cl, "Thread " +  threadName + " starting.");
+    			if (!suspend) {
+    				int packetNum = captor.startCaptor();
+    				LogUtil.console(cl, "received packet number : " + packetNum);
+    				LogUtil.console(cl, "Thread " +  threadName + " starting.");
+    			}
     		}
     		LogUtil.console(cl, "Thread " +  threadName + " exiting.");
     	}
     }
-    
-    /**
+
+	/**
      * 开始
      */
     public void start(){
     	LogUtil.console(cl, "Starting " +  threadName );
     	LogUtil.debug(cl, "Starting " +  threadName );
 		PacketReceiverImpl.STATUS = 1;
-        stopped = false;
-        if(t == null){
-            t = new Thread(this, threadName);
-            t.start();
-        } else if (!t.isAlive()){
-        	t.start();
+		this.setStopped(false);
+        if(CaptureThread.T == null){
+        	CaptureThread.T = new Thread(this, threadName);
+        	CaptureThread.T.start();
+        } else if (!CaptureThread.T.isAlive()){
+        	CaptureThread.T.start();
         }
     }
     
@@ -47,16 +68,21 @@ public class CaptureThread implements Runnable {
      */
     public synchronized void stop(){
 		PacketReceiverImpl.STATUS = 0;
-    	stopped = true;
+		if(null != CaptureThread.T && !CaptureThread.T.isInterrupted()){
+			CaptureThread.T.interrupt();
+		}
+		this.setStopped(true);
     	captor.stopCaptor();
+    	CaptureThread.T = null;
     	notify();
     }
     
     /**
      * 暂停
      */
-    public synchronized void suspend(){
+    public synchronized void pause(){
     	PacketReceiverImpl.STATUS = 2;
+    	setSuspend(true);
     }
      
      /**
@@ -64,6 +90,6 @@ public class CaptureThread implements Runnable {
       */
      public synchronized void resume(){
      	PacketReceiverImpl.STATUS = 1;
-        notify();
+     	setSuspend(false);
      }
 }

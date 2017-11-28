@@ -2,16 +2,18 @@ package com;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
+import javax.swing.JToolBar;
+import com.common.Constants;
 import com.netcap.DataCache;
 import com.netcap.captor.CaptureThread;
 import com.view.util.StatusProgressPanel;
@@ -33,7 +35,7 @@ public class WindowsFrame extends JFrame implements ActionListener {
 	private JLabel urlLabel;
 	private JTextArea urlFilterArea;
 	
-	private JButton applyButton;
+	private JButton startBtn, stopBtn, pauseBtn, resumeBtn;
 
 	
 	public WindowsFrame() {
@@ -60,28 +62,108 @@ public class WindowsFrame extends JFrame implements ActionListener {
 		urlFilterArea = new JTextArea(3, 20);
 		urlFilterArea.setEditable(true);
 		urlFilterArea.setLineWrap(true);
-		applyButton = ViewModules.createButton("Start", "SaveCaptureSetting", this);
-		applyButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		startBtn = ViewModules.createButton("StartCapture", "Start", this);
+//		startBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+		pauseBtn = ViewModules.createButton("PauseCapture", "Pause", this);
+//		pauseBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		resumeBtn = ViewModules.createButton("ResumeCapture", "Resume", this);
+//		resumeBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		stopBtn = ViewModules.createButton("StopCapture", "Stop", this);
+//		stopBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		panel.add(projectNameLabel, "1, 1, 1, 1");
 		panel.add(projectJComboBox, "2, 1, 3, 1");
 		panel.add(ethernetLabel, "1, 3, 1, 1");
 		panel.add(netJComboBox, "2, 3, 3, 1");
 		panel.add(urlLabel, "1, 5, 3, 1");
 		panel.add(urlFilterArea, "1, 7, 3, 1");
-		panel.add(applyButton, "3, 9, 1, 1");
+//		panel.add(startBtn, "3, 6, 1, 1");
+//		panel.add(pauseBtn, "3, 7, 1, 1");
+//		panel.add(resumeBtn, "3, 8, 1, 1");
+//		panel.add(stopBtn, "3, 9, 1, 1");
+		this.getContentPane().add(this.createToolBar(), BorderLayout.NORTH);
 		this.getContentPane().add(panel, BorderLayout.CENTER);
-		
+		this.setCaptureEnabled(true, false, false, false);
 		this.setVisible(true);
 	}
 	
-	public void actionPerformed(ActionEvent evt) {
-		String projectName = projectJComboBox.getSelectedItem() == null ? null : projectJComboBox.getSelectedItem().toString();
-		DataCache.setProjectName(projectName);
-		String deviceName = netJComboBox.getSelectedItem() == null ? null : netJComboBox.getSelectedItem().toString();
-		DataCache.setNetDevicesName(deviceName);
-		DataCache.setCaptureUrl(urlFilterArea.getText());
-		new CaptureThread("CaptureThread").start();
-		this.progress.startProgress("Starting...");
+	/**
+	 * 创建工具栏
+	 * @return
+	 */
+	public JToolBar createToolBar() {
+		JToolBar toolBar = new JToolBar();
+		toolBar.setFloatable(false);
+		toolBar.setAutoscrolls(true);
+		toolBar.setBackground(new Color(216,218,254));
+		
+		startBtn.setIcon(new ImageIcon(Constants.START_NORMAL_ICON));
+		startBtn.setToolTipText("Start Capture");
+		startBtn.setBackground(new Color(216,218,254));
+		toolBar.add(startBtn);
+		
+		pauseBtn.setIcon(new ImageIcon(Constants.PAUSE_DISABLED_ICON));
+		pauseBtn.setToolTipText("Pause Capture");
+		pauseBtn.setBackground(new Color(216,218,254));
+		toolBar.add(pauseBtn);
+		
+		resumeBtn.setIcon(new ImageIcon(Constants.RESUME_ICON));
+		resumeBtn.setToolTipText("Resume Capture");
+		resumeBtn.setBackground(new Color(216,218,254));
+		toolBar.add(resumeBtn);
+		
+		stopBtn.setIcon(new ImageIcon(Constants.STOP_NORMAL_ICON));
+		stopBtn.setToolTipText("Stop Capture");
+		stopBtn.setBackground(new Color(216,218,254));
+		toolBar.add(stopBtn);
+		
+		return toolBar;
+	}
+	
+	/**
+	 * 
+	 * @param start
+	 * @param pause
+	 * @param resume
+	 * @param stop
+	 */
+	public void setCaptureEnabled(boolean start, boolean pause, boolean resume, boolean stop){
+		startBtn.setEnabled(start);
+		pauseBtn.setEnabled(pause);
+		resumeBtn.setEnabled(resume);
+		stopBtn.setEnabled(stop);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch(e.getActionCommand()){
+		case "Start":
+			String projectName = projectJComboBox.getSelectedItem() == null ? null : projectJComboBox.getSelectedItem().toString();
+			DataCache.setProjectName(projectName);
+			String deviceName = netJComboBox.getSelectedItem() == null ? null : netJComboBox.getSelectedItem().toString();
+			DataCache.setNetDevicesName(deviceName);
+			DataCache.setCaptureUrl(urlFilterArea.getText());
+			CaptureThread.getInstance("CaptureThread").start();
+			this.progress.startProgress("Capture Starting...");
+			this.setCaptureEnabled(false, true, false, true);
+			break;
+		case "Pause":
+			CaptureThread.getInstance("CaptureThread").pause();
+			this.progress.startProgress("Capture Paused...");
+			this.setCaptureEnabled(false, false, true, false);
+			break;
+		case "Resume":
+			CaptureThread.getInstance("CaptureThread").resume();
+			this.progress.startProgress("Capture Resume...");
+			this.setCaptureEnabled(false, true, false, true);
+			break;
+		case "Stop":
+			CaptureThread.getInstance("CaptureThread").stop();
+			this.progress.stopProgress("Capture Stopped!");
+			this.setCaptureEnabled(true, false, false, false);
+			break;
+		default:
+			break;
+		}
 	}
 	
 }

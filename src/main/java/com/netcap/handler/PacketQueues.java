@@ -15,7 +15,7 @@ public class PacketQueues {
 	/**
 	 * 假如 参数t 为任务
 	 * 
-	 * @param t
+	 * @param T
 	 */
 	public static void add(Task task) {
 		synchronized (PacketQueues.packetQueue) {
