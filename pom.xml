@@ -15,12 +15,20 @@
 	</properties>
 
 	<dependencies>
+		<!-- jpcap -->
+		<dependency>
+			<groupId>jpcap</groupId>
+			<artifactId>jpcap</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+      		<systemPath>${project.basedir}/lib/jpcap.jar</systemPath>
+		</dependency>
 		<!-- java swing -->
-	<dependency>
-		<groupId>tablelayout</groupId>
-		<artifactId>TableLayout</artifactId>
-		<version>20050920</version>
-	</dependency>
+		<dependency>
+			<groupId>tablelayout</groupId>
+			<artifactId>TableLayout</artifactId>
+			<version>20050920</version>
+		</dependency>
 		<!-- json-lib components begin -->
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>

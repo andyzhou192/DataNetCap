@@ -12,7 +12,6 @@ import com.common.util.StringUtil;
 import jpcap.JpcapCaptor;
 import jpcap.NetworkInterface;
 
-@SuppressWarnings("restriction")
 public class NetDevice {
 	private static Class<?> cl = NetDevice.class;
 	
@@ -30,7 +29,25 @@ public class NetDevice {
 	 */
 	private static Map<String, NetworkInterface> getNetDeviceMapForWindows(){
 		Map<String, NetworkInterface> devicesMap = new HashMap<String, NetworkInterface>();
-		Map<String, NetworkInterface> jpcapDevicesMap = getNetDeviceMapForLinux();
+		Map<String, NetworkInterface> jpcapDevicesMap = new HashMap<String, NetworkInterface>();
+		NetworkInterface[] devices = JpcapCaptor.getDeviceList();
+		if (devices == null) {
+			return null;
+		} 
+		for (int i = 0; i < devices.length; i++) {
+			for (jpcap.NetworkInterfaceAddress addr : devices[i].addresses) {
+				if (addr != null && addr.address != null) {
+					String ip = addr.address.getHostAddress();
+					if (StringUtil.isIPV4(ip) || "0.0.0.0".equals(ip.trim())) {
+						String desc = devices[i].description == null ? "" : devices[i].description;
+						jpcapDevicesMap.put(desc + "[" + ip + "]", devices[i]);
+						break;
+					}
+				}
+				continue;
+			}
+		}
+		
 		Map<String, String> localDeviceMap = getLocalNetworkInterface();
 		Iterator<String> it = jpcapDevicesMap.keySet().iterator();
 		while(it.hasNext()){
@@ -71,13 +88,8 @@ public class NetDevice {
 					if (addr != null && addr.address != null) {
 						String ip = addr.address.getHostAddress();
 						if (StringUtil.isIPV4(ip) || "0.0.0.0".equals(ip.trim())) {
-							if (Constants.OS_NAME.toLowerCase().contains("linux")){
-								String name = devices[i].name == null ? "" : devices[i].name;
-								devicesMap.put(name + "[" + ip + "]", devices[i]);
-							} else {
-								String desc = devices[i].description == null ? "" : devices[i].description;
-								devicesMap.put(desc + "[" + ip + "]", devices[i]);
-							}
+							String name = devices[i].name == null ? "" : devices[i].name;
+							devicesMap.put(name + "[" + ip + "]", devices[i]);
 							break;
 						}
 					}
