@@ -14,6 +14,13 @@ import com.common.util.StringUtil;
  */
 public final class Constants {
 
+//	static {
+//		String srcPath = System.getProperty("java.library.path");
+//		String dllPath = System.getProperty("user.dir") + File.separator + "lib";
+//		System.setProperty("java.library.path", srcPath + dllPath);
+//		System.out.println(System.getProperty("java.library.path"));
+//	}
+	
 	public final static String UTF8 = "UTF-8"; //Charset UTF_8 = Charset.forName("UTF-8");
 	public final static String SP = " "; // 空格
 	public final static String CRLF = "\r\n"; // 回车换行（carriage return/line feed）
