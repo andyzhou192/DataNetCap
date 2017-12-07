@@ -3,6 +3,7 @@ package com.netcap.handler;
 import java.util.LinkedList;
 
 import com.common.util.LogUtil;
+import com.common.util.PropertiesUtil;
 import com.common.util.StringUtil;
 import com.generator.bean.DataForJavaBean;
 import com.netcap.DataCache;
@@ -55,9 +56,16 @@ public class DataQueues {
      */
     public static boolean isValidReq(String url){
     	String captureUrl = DataCache.getCaptureUrl();
-    	if(null == url || url.endsWith(".js") || url.endsWith(".css") || url.endsWith(".png") || url.endsWith(".jpg") || url.endsWith(".jpeg") || url.endsWith(".gif")){
+    	String excludeUrlSuffix = PropertiesUtil.getProperty("excludeUrlSuffix");
+    	if(null == url){
     		return false;
     	}else {
+    		if(!StringUtil.isEmpty(excludeUrlSuffix)){
+    			for(String suffix : excludeUrlSuffix.split(",")){
+    				if(url.endsWith(suffix))
+    					return false;
+    			}
+    		}
     		if(StringUtil.isEmpty(captureUrl) || StringUtil.isBlank(captureUrl)){
     			return true;
     		} else {

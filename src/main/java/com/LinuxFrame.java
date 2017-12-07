@@ -54,6 +54,17 @@ public class LinuxFrame {
 			LogUtil.console(cl, "Your choice is :" + projectMap.get(Integer.valueOf(str2)));
 			DataCache.setProjectName(projectMap.get(Integer.valueOf(str2)));
 		}
+		
+		BufferedReader br3 = new BufferedReader(new InputStreamReader(System.in));
+		String urlFilter = null;
+		LogUtil.console(cl, "Please input the url Filters(Multiple filtering conditions are separated by \",\"):");
+		try {
+			urlFilter = br3.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		LogUtil.console(cl, "Your url Filters is :" + urlFilter);
+		DataCache.setCaptureUrl(urlFilter);
 
 		CaptureThread.getInstance("CaptureThread").start();
 	}
