@@ -6,7 +6,6 @@ import com.netcap.handler.ConnectToPlatform;
 
 import jpcap.NetworkInterface;
 
-@SuppressWarnings("restriction")
 public class DataCache {
 
 	public static Map<String, Object> projectMap = ConnectToPlatform.getProjectMap();

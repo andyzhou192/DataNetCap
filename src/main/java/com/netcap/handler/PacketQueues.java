@@ -1,13 +1,15 @@
 package com.netcap.handler;
 
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 
 import com.common.util.LogUtil;
+import com.common.util.PropertiesUtil;
+import com.common.util.StringUtil;
 import com.protocol.http.HttptHelper;
 import jpcap.packet.Packet;
 import jpcap.packet.TCPPacket;
 
-@SuppressWarnings("restriction")
 public class PacketQueues {
 
 	public static LinkedList<Task> packetQueue = new LinkedList<Task>();
@@ -72,7 +74,17 @@ public class PacketQueues {
     	 * @param method
     	 */
     	private void assembleRspPacket(TCPPacket tcpPacket, String method) {
-    		String data = new String(tcpPacket.data);
+    		String encoding = PropertiesUtil.getProperty("encoding");
+    		String data = null;
+    		if(StringUtil.isEmpty(encoding)) {
+    			data = new String(tcpPacket.data);
+    		} else {
+    			try {
+    				data = new String(tcpPacket.data, encoding);
+    			} catch (UnsupportedEncodingException e) {
+    				e.printStackTrace();
+    			}
+    		}
     		if(HttptHelper.isFirstResponse(data)){
     			if("head".equalsIgnoreCase(method)){
     				rspData = data;
