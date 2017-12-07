@@ -34,7 +34,12 @@ public class PropertiesUtil {
 	}
 	
 	public static String getProperty(String proName) {
-		PropertiesUtil.loadProperties("conf/setting.properties");
+		String proDir = System.getenv("ProDir");
+		if(StringUtil.isEmpty(proDir)){
+			PropertiesUtil.loadProperties("conf/setting.properties");
+		} else {
+			PropertiesUtil.loadProperties(proDir + "/conf/setting.properties");
+		}
 		return prop.getProperty(proName);
 	}
 	

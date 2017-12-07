@@ -38,8 +38,8 @@ public class LinuxFrame {
 			Map<Integer, String> projectMap = new HashMap<Integer, String>();
 			int j = 0;
 			for (String key : DataCache.projectMap.keySet()) {
-				projectMap.put(j, key);
-				LogUtil.console(cl, j + ":" + key);
+				projectMap.put(j, DataCache.projectMap.get(key).toString());
+				LogUtil.console(cl, j + ":" + key + "-" + DataCache.projectMap.get(key));
 				j++;
 			}
 			

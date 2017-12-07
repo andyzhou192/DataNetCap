@@ -14,8 +14,8 @@ Windows环境使用：
 6、点击start按钮开始抓包（点击后下面的状态栏会显示为运行状态）。
 
 Linux环境安装：
-1、安装Java环境：jdk安装
-2、执行software目录下的install.sh脚本，安装libpcap和jpcap及其相关组件（build-essential包）；
-3、完成基础安装后，执行命令java -jar DataNetCap.jar启动抓包。
+1、安装Java环境：jdk安装（1.7版本或以上）
+2、执行bin目录下的install.sh脚本，安装libpcap和jpcap及其相关组件（build-essential包）；
+3、完成基础安装后，执行startup.sh脚本启动抓包。
 
 编译打包命令：mvn assembly:assembly
