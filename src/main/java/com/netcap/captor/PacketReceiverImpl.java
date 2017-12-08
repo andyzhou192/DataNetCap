@@ -6,7 +6,6 @@ import com.netcap.handler.PacketQueues;
 import jpcap.PacketReceiver;
 import jpcap.packet.Packet;
 
-@SuppressWarnings("restriction")
 public class PacketReceiverImpl implements PacketReceiver {
 	
 	private Thread packetHandlerThread = null;

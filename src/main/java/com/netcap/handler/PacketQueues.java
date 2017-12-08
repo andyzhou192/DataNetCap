@@ -46,6 +46,8 @@ public class PacketQueues {
         public void packetProcess(){
         	if(packet instanceof TCPPacket){
     			TCPPacket tcpPacket = (TCPPacket) packet;
+    			//String dstIP = tcpPacket.dst_ip.getHostAddress();
+    			//String srcIP = tcpPacket.src_ip.getHostAddress();
     			assemblePacket(tcpPacket);
     		}
         }
@@ -55,7 +57,17 @@ public class PacketQueues {
     	 * @param data
     	 */
     	private void assemblePacket(TCPPacket tcpPacket) {
-    		String data = new String(tcpPacket.data);
+    		String encoding = PropertiesUtil.getProperty("encoding");
+    		String data = null;
+    		if(StringUtil.isEmpty(encoding)) {
+    			data = new String(tcpPacket.data);
+    		} else {
+    			try {
+    				data = new String(tcpPacket.data, encoding);
+    			} catch (UnsupportedEncodingException e) {
+    				e.printStackTrace();
+    			}
+    		}
     		String method = HttptHelper.checkHttpRequest(data);
     		if(method != null){
     			if(reqData.length() > 0 && rspData.length() > 0){

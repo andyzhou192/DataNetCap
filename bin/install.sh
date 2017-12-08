@@ -5,7 +5,7 @@ yum install -y gcc g++ kernel-devel
 
 #compile and install libpcap
 #wget ftp://ftp.gnu.org/gnu/m4/m4-latest.tar.gz  #解压后文件夹名称为m4-1.4.17
-tar zxvf m4-latest.tar.gz
+tar zxvf ../software/m4-latest.tar.gz -C ./
 cd m4-1.4.17
 sudo ./configure
 sudo make
@@ -13,7 +13,7 @@ sudo make install
 cd ..
 
 #wget ftp://ftp.gnu.org/gnu/bison/bison-3.0.tar.xz
-tar Jxvf bison-3.0.tar.xz
+tar Jxvf ../software/bison-3.0.tar.xz -C ./
 cd bison-3.0
 sudo ./configure
 sudo make
@@ -21,7 +21,7 @@ sudo make install
 cd ..
 
 #wget https://github.com/westes/flex/files/981163/flex-2.6.4.tar.gz
-tar zxvf flex-2.6.4.tar.gz
+tar zxvf ../software/flex-2.6.4.tar.gz -C ./
 cd flex-2.6.4
 sudo ./configure
 sudo make
@@ -29,7 +29,7 @@ sudo make install
 cd ..
 
 #wget http://www.tcpdump.org/release/libpcap-1.8.1.tar.gz
-tar zxvf libpcap-1.8.1.tar.gz
+tar zxvf ../software/libpcap-1.8.1.tar.gz -C ./
 cd libpcap-1.8.1
 sudo ./configure
 sudo make
@@ -39,7 +39,7 @@ cd ..
 
 #compile and install jpcap
 #wget https://github.com/mgodave/Jpcap/archive/master.zip
-unzip master.zip #解压后的文件夹名称为Jpcap-master
+unzip ../software/master.zip -d ./ #解压后的文件夹名称为Jpcap-master
 cd Jpcap-master/src/main/c
 sudo make
 #将生成的libjpcap.so文件拷贝到$JAVA_HOME/jre/lib/<arch>目录中。其中，arch对应的是计算机架构，如i386、sparc、amd64等等

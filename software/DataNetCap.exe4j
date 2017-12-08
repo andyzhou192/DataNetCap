@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exe4j version="6.0" transformSequenceNumber="2">
+  <directoryPresets config="D:/workspace/DataNetCap/src/main/resources/img" />
+  <application name="DataNetCap" distributionSourceDir="D:/workspace/DataNetCap/target/DataNetCap-bin">
+    <languages>
+      <principalLanguage id="en" customLocalizationFile="" />
+    </languages>
+  </application>
+  <executable name="DataNetCap" type="2" iconSet="false" iconFile="" executableDir="." redirectStderr="true" stderrFile="error.log" stderrMode="overwrite" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="java9+" amd64="true">
+    <messageSet />
+    <versionInfo include="false" fileVersion="" fileDescription="" legalCopyright="" internalName="" productName="" companyName="" productVersion="" />
+  </executable>
+  <splashScreen show="true" width="0" height="0" bitmapFile="D:/workspace/DataNetCap/src/main/resources/img/loading_throbber.png" textOverlay="true">
+    <text>
+      <statusLine x="20" y="20" text="Loading" fontSize="8" fontColor="0,0,0" bold="false" />
+      <versionLine x="20" y="40" text="version %VERSION%" fontSize="8" fontColor="0,0,0" bold="false" />
+    </text>
+  </splashScreen>
+  <java mainClass="com.Main" mainMode="1" vmParameters="" arguments="" allowVMPassthroughParameters="true" preferredVM="" bundleRuntime="true" minVersion="1.7" maxVersion="" allowBetaVM="false" jdkOnly="false">
+    <searchSequence>
+      <registry />
+      <envVar name="JAVA_HOME" />
+      <envVar name="JDK_HOME" />
+      <directory location="../../../../Program/Java/jdk1.8.0_144" />
+    </searchSequence>
+    <classPath>
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/DataNetCap.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/jpcap.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/commons-beanutils-1.9.3.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/commons-codec-1.10.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/commons-collections-3.1.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/commons-lang-2.4.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/commons-logging-1.2.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/ezmorph-1.0.6.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/freemarker-gae-2.3.23.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/httpclient-4.5.2.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/httpcore-4.4.4.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/httpmime-4.5.3.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/json-lib-2.4-jdk15.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/log4j-1.2.14.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/TableLayout-20050920.jar" failOnError="false" />
+    </classPath>
+    <modulePath />
+    <nativeLibraryDirectories>
+      <directory name="./lib" />
+    </nativeLibraryDirectories>
+    <vmOptions />
+  </java>
+  <includedFiles />
+  <unextractableFiles />
+</exe4j>

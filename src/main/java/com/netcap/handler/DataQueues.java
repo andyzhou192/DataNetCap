@@ -70,7 +70,7 @@ public class DataQueues {
     			return true;
     		} else {
     			for(String address : captureUrl.split(",")){
-    				LogUtil.debug(cl, "--------->" + url);
+    				LogUtil.debug(cl, "URL--------->" + url);
     				if(url.contains(address.trim())){
     					return true;
     				}
