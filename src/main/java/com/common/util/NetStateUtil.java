@@ -37,7 +37,7 @@ public class NetStateUtil {
             br.close();     
      
             if (null != sb && !sb.toString().equals("")) {     
-                String logString = "";     
+                //String logString = "";     
                 if (sb.toString().indexOf("TTL") > 0) {     
                     // 网络畅通      
                     connect = true;    

@@ -12,6 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
 	</properties>
 
 	<dependencies>
@@ -21,7 +22,7 @@
 			<artifactId>jpcap</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-      		<systemPath>${project.basedir}/lib/jpcap.jar</systemPath>
+			<systemPath>${project.basedir}/lib/jpcap.jar</systemPath>
 		</dependency>
 		<!-- java swing -->
 		<dependency>
@@ -78,7 +79,7 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -91,7 +92,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>DataNetCap</finalName>
+		<finalName>${project.artifactId}-${project.version}_${maven.build.timestamp}</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>
 			<!-- Control resource file copy -->
@@ -166,7 +167,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 </project>

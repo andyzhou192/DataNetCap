@@ -1,16 +1,11 @@
 package com.netcap.handler;
 
-//import java.io.BufferedReader;
-//import java.io.File;
-//import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 //import java.util.ArrayList;
 //import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -20,6 +15,7 @@ import org.apache.http.impl.client.HttpClients;
 //import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import com.WindowsFrame;
 import com.common.Constants;
 import com.common.util.JsonUtil;
 import com.common.util.LogUtil;
@@ -83,20 +79,13 @@ public class ConnectToPlatform {
 				LogUtil.debug(cl, "prijectInfo--->" + rev);
 				projectMap = JsonUtil.jsonToMap(rev);
 			}
-		} catch (ClientProtocolException e) {
-			LogUtil.err(cl, e);
-			if (Constants.OS_NAME.toLowerCase().contains("windows")) {
-				ViewModules.showMessageDialog(null, "获取项目列表失败！", "Error", 0);
-			}
-		} catch (IOException e) {
-			LogUtil.err(cl, e);
-			if (Constants.OS_NAME.toLowerCase().contains("windows")) {
-				ViewModules.showMessageDialog(null, "获取项目列表失败！", "Error", 0);
-			}
 		} catch (Exception e) {
 			LogUtil.err(cl, e);
 			if (Constants.OS_NAME.toLowerCase().contains("windows")) {
-				ViewModules.showMessageDialog(null, "获取项目列表失败！", "Error", 0);
+				//ViewModules.showMessageDialog(null, "获取项目列表失败！", "Error", 0);
+				WindowsFrame.setProjectName("获取项目列表失败！");
+			} else {
+				LogUtil.console(cl, "Failed to get project list... ");
 			}
 		}
 		
@@ -107,8 +96,8 @@ public class ConnectToPlatform {
 	public static String getProjectId() {
 		String key = null;
 		// Map,HashMap并没有实现Iteratable接口.不能用于增强for循环.
-		for (String getKey : DataCache.projectMap.keySet()) {
-			if (DataCache.projectMap.get(getKey).equals(DataCache.getProjectName())) {
+		for (String getKey : DataCache.getProjectMap().keySet()) {
+			if (DataCache.getProjectMap().get(getKey).equals(DataCache.getProjectName())) {
 				key = getKey;
 			}
 		}

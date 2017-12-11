@@ -8,7 +8,6 @@ import com.netcap.DataCache;
 import jpcap.JpcapCaptor;
 import jpcap.NetworkInterface;
 
-@SuppressWarnings("restriction")
 public class NetCaptor {
 	private static Class<?> cl = NetCaptor.class;
 
@@ -26,9 +25,9 @@ public class NetCaptor {
 	public void initCaptor() {
 		if (null == captor) {
 			try {
-				NetworkInterface nif = DataCache.devicesMap.get(DataCache.getNetDevicesName());
+				NetworkInterface nif = DataCache.getDevicesMap().get(DataCache.getNetDevicesName());
 				if (null == nif)
-					nif = DataCache.devicesMap.values().iterator().next();
+					nif = DataCache.getDevicesMap().values().iterator().next();
 				captor = JpcapCaptor.openDevice(nif, 65535, false, 5000);
 				captor.setFilter("tcp", true);
 			} catch (IOException e) {

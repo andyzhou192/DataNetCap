@@ -1,4 +1,10 @@
 @echo off
+echo ************************************************************  
+echo *                                                          *  
+echo *                    DataNetCap startup                    *  
+echo *                                                          *  
+echo ************************************************************  
+echo.  
 ::启用命令扩展功能
 SETLOCAL ENABLEEXTENSIONS
 if not defined JAVA_HOME (

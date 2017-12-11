@@ -17,7 +17,7 @@ public class LinuxFrame {
 	public LinuxFrame(){
 		Map<Integer, String> deviceMap = new HashMap<Integer, String>();
 		int i = 0;
-		for (String key : DataCache.devicesMap.keySet()) {
+		for (String key : DataCache.getDevicesMap().keySet()) {
 			deviceMap.put(i, key);
 			LogUtil.console(cl, i + ":" + key);
 			i++;
@@ -34,12 +34,12 @@ public class LinuxFrame {
 		LogUtil.console(cl, "Your choice is :" + deviceMap.get(Integer.valueOf(str)));
 		DataCache.setNetDevicesName(deviceMap.get(Integer.valueOf(str)));
 
-		if(null != DataCache.projectMap && DataCache.projectMap.size() > 0){
+		if(null != DataCache.getProjectMap() && DataCache.getProjectMap().size() > 0){
 			Map<Integer, String> projectMap = new HashMap<Integer, String>();
 			int j = 0;
-			for (String key : DataCache.projectMap.keySet()) {
-				projectMap.put(j, DataCache.projectMap.get(key).toString());
-				LogUtil.console(cl, j + ":" + key + "-" + DataCache.projectMap.get(key));
+			for (String key : DataCache.getProjectMap().keySet()) {
+				projectMap.put(j, DataCache.getProjectMap().get(key).toString());
+				LogUtil.console(cl, j + ":" + key + "-" + DataCache.getProjectMap().get(key));
 				j++;
 			}
 			

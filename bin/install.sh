@@ -1,4 +1,10 @@
 #!/bin/sh
+echo ************************************************************  
+echo *                                                          *  
+echo *                    DataNetCap install                    *  
+echo *                                                          *  
+echo ************************************************************  
+echo.  
 #install build-essential
 yum groupinstall "Development Tools"
 yum install -y gcc g++ kernel-devel

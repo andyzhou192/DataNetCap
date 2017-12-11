@@ -13,6 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
+
 import com.common.Constants;
 import com.netcap.DataCache;
 import com.netcap.captor.CaptureThread;
@@ -27,7 +30,7 @@ public class WindowsFrame extends JFrame implements ActionListener {
 	public StatusProgressPanel progress;
 	
 	private JLabel projectNameLabel;
-	private JComboBox<?> projectJComboBox;
+	private JComboBox<Object> projectJComboBox;
 	
 	private JLabel ethernetLabel;
 	private JComboBox<?> netJComboBox;
@@ -37,6 +40,7 @@ public class WindowsFrame extends JFrame implements ActionListener {
 	
 	private JButton startBtn, stopBtn, pauseBtn, resumeBtn;
 
+	private static String projectName;
 	
 	public WindowsFrame() {
 		super();
@@ -57,8 +61,34 @@ public class WindowsFrame extends JFrame implements ActionListener {
 		ethernetLabel.setToolTipText("请选择网卡");
 		urlLabel = ViewModules.createJLabel("Capture Url:(Multiple addresses are separated by ',')", Color.BLACK);
 		urlLabel.setToolTipText("请填写待捕获的URL");
-		projectJComboBox = ViewModules.createComboBox(DataCache.projectMap.values().toArray());
-		netJComboBox = ViewModules.createComboBox(DataCache.devicesMap.keySet().toArray());
+		projectJComboBox = new JComboBox<Object>();
+		projectJComboBox.addPopupMenuListener(new PopupMenuListener(){  
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) { 
+            	projectJComboBox.removeAllItems();
+            	if(!DataCache.getProjectMap().isEmpty()){
+            		for(Object item : DataCache.getProjectMap().values().toArray()){
+            			projectJComboBox.addItem(item);
+            			if(null != projectName && projectName.length() > 0 && projectName.equals(item.toString())){
+            				projectJComboBox.setSelectedItem(projectName);
+            			}
+            		}
+            	} else if(null != projectName){
+            		projectJComboBox.addItem(projectName);
+            		projectJComboBox.setSelectedItem(projectName);
+            	}
+            }  
+            
+            public void popupMenuCanceled(PopupMenuEvent e) {
+            }  
+            
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) { 
+            	if(null != projectJComboBox.getSelectedItem()){
+            		projectName = ((String) projectJComboBox.getSelectedItem()).trim();  
+            	}
+            }  
+        });  
+		
+		netJComboBox = ViewModules.createComboBox(DataCache.getDevicesMap().keySet().toArray());
 		urlFilterArea = new JTextArea(3, 20);
 		urlFilterArea.setEditable(true);
 		urlFilterArea.setLineWrap(true);
@@ -72,8 +102,10 @@ public class WindowsFrame extends JFrame implements ActionListener {
 //		stopBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		panel.add(projectNameLabel, "1, 1, 1, 1");
 		panel.add(projectJComboBox, "2, 1, 3, 1");
+		
 		panel.add(ethernetLabel, "1, 3, 1, 1");
 		panel.add(netJComboBox, "2, 3, 3, 1");
+		
 		panel.add(urlLabel, "1, 5, 3, 1");
 		panel.add(urlFilterArea, "1, 7, 3, 1");
 //		panel.add(startBtn, "3, 6, 1, 1");
@@ -84,6 +116,10 @@ public class WindowsFrame extends JFrame implements ActionListener {
 		this.getContentPane().add(panel, BorderLayout.CENTER);
 		this.setCaptureEnabled(true, false, false, false);
 		this.setVisible(true);
+	}
+	
+	public static void setProjectName(String item) {
+		WindowsFrame.projectName = item;
 	}
 	
 	/**

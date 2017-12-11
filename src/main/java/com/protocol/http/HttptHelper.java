@@ -12,7 +12,6 @@ import com.common.util.StringUtil;
 import com.generator.bean.DataForJavaBean;
 import net.sf.json.JSONObject;
 
-@SuppressWarnings("restriction")
 public class HttptHelper {
 	private static Class<?> cl = HttptHelper.class;
 

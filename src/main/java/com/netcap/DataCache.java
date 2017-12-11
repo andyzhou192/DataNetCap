@@ -8,15 +8,29 @@ import jpcap.NetworkInterface;
 
 public class DataCache {
 
-	public static Map<String, Object> projectMap = ConnectToPlatform.getProjectMap();
+	private static Map<String, Object> projectMap;
 	
-	public static Map<String, NetworkInterface> devicesMap = NetDevice.getNetDeviceMap();
+	private static Map<String, NetworkInterface> devicesMap;
 	
 	private static String projectName;
 	
 	private static String netDevicesName;
 
 	private static String captureUrl;
+	
+	public static Map<String, Object> getProjectMap(){
+		if(null == DataCache.projectMap){
+			DataCache.projectMap = ConnectToPlatform.getProjectMap();
+		}
+		return DataCache.projectMap;
+	}
+	
+	public static Map<String, NetworkInterface> getDevicesMap(){
+		if(null == DataCache.devicesMap){
+			DataCache.devicesMap = NetDevice.getNetDeviceMap();
+		}
+		return DataCache.devicesMap;
+	}
 	
 	public static String getProjectName() {
 		if(null != projectName){
