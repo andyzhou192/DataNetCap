@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="6.0" transformSequenceNumber="2">
-  <directoryPresets config="D:/workspace/DataNetCap/src/main/resources/img" />
+  <directoryPresets config="./software/windows/dll" />
   <application name="DataNetCap" distributionSourceDir="D:/workspace/DataNetCap/target/DataNetCap-bin">
     <languages>
       <principalLanguage id="en" customLocalizationFile="" />
     </languages>
   </application>
-  <executable name="DataNetCap" type="2" iconSet="false" iconFile="" executableDir="." redirectStderr="true" stderrFile="error.log" stderrMode="overwrite" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="java9+" amd64="true">
+  <executable name="DataNetCap" type="1" iconSet="false" iconFile="" executableDir="." redirectStderr="true" stderrFile="logs/error.log" stderrMode="append" redirectStdout="true" stdoutFile="logs/output.log" stdoutMode="append" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="java9+" amd64="true">
     <messageSet />
     <versionInfo include="false" fileVersion="" fileDescription="" legalCopyright="" internalName="" productName="" companyName="" productVersion="" />
   </executable>
-  <splashScreen show="true" width="0" height="0" bitmapFile="D:/workspace/DataNetCap/src/main/resources/img/loading_throbber.png" textOverlay="true">
+  <splashScreen show="true" width="0" height="0" bitmapFile="D:/workspace/DataNetCap/loading.gif" textOverlay="false">
     <text>
-      <statusLine x="20" y="20" text="Loading" fontSize="8" fontColor="0,0,0" bold="false" />
+      <statusLine x="25" y="25" text="" fontSize="16" fontColor="0,255,255" bold="false" />
       <versionLine x="20" y="40" text="version %VERSION%" fontSize="8" fontColor="0,0,0" bold="false" />
     </text>
   </splashScreen>
@@ -21,10 +21,9 @@
       <registry />
       <envVar name="JAVA_HOME" />
       <envVar name="JDK_HOME" />
-      <directory location="../../../../Program/Java/jdk1.8.0_144" />
     </searchSequence>
     <classPath>
-      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/DataNetCap.jar" failOnError="false" />
+      <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/DataNetCap-1.0.0_20171212.jar" failOnError="false" />
       <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/jpcap.jar" failOnError="false" />
       <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/commons-beanutils-1.9.3.jar" failOnError="false" />
       <archive location="D:/workspace/DataNetCap/target/DataNetCap-bin/lib/commons-codec-1.10.jar" failOnError="false" />
@@ -42,7 +41,7 @@
     </classPath>
     <modulePath />
     <nativeLibraryDirectories>
-      <directory name="./lib" />
+      <directory name="./software/windows/dll" />
     </nativeLibraryDirectories>
     <vmOptions />
   </java>

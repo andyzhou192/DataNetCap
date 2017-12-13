@@ -4,7 +4,7 @@
 
 	<groupId>com</groupId>
 	<artifactId>DataNetCap</artifactId>
-	<version>1.0.0</version>
+	<version>${maven.build.timestamp}</version>
 	<packaging>jar</packaging>
 
 	<name>DataNetCap</name>
@@ -92,7 +92,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>${project.artifactId}-${project.version}_${maven.build.timestamp}</finalName>
+		<finalName>${project.artifactId}-${project.version}</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>
 			<!-- Control resource file copy -->
@@ -135,12 +135,12 @@
 								party jar into the Lib directory, so the classpath prefix is lib/ -->
 							<classpathPrefix>lib/</classpathPrefix>
 							<!-- application's main class -->
-							<mainClass>com.Main</mainClass>
+							<mainClass>com.net.Main</mainClass>
 						</manifest>
 						<!-- 给清单文件添加键值对(配置文件外置) -->
-						<manifestEntries>
-							<Class-Path>exts/*.jar</Class-Path>
-						</manifestEntries>
+						<!-- manifestEntries>
+							<Class-Path>lib/*.jar</Class-Path>
+						</manifestEntries> -->
 					</archive>
 				</configuration>
 			</plugin>
@@ -152,6 +152,8 @@
 				<version>2.4</version>
 				<!-- The configuration of the plugin -->
 				<configuration>
+					<finalName>DataNetCap</finalName>  
+                    <appendAssemblyId>false</appendAssemblyId>  
 					<!-- Specifies the configuration file of the assembly plugin -->
 					<descriptors>
 						<descriptor>assembly.xml</descriptor>

@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.table.AbstractTableModel;
 
-import com.common.util.LogUtil;
+import com.net.common.util.LogUtil;
 
 @SuppressWarnings("serial")
 public class HttpDataTableModel extends AbstractTableModel implements Serializable {

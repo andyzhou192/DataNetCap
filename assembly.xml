@@ -2,7 +2,7 @@
 	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-	<id>bin</id>
+	<id>BIN</id>
 	<includeBaseDirectory>false</includeBaseDirectory>
 	<!-- 最终打包成一个用于发布的zip文件 -->
 	<formats>
@@ -48,9 +48,10 @@
 		<fileSet>
 			<directory>${project.basedir}/lib</directory>
 			<outputDirectory>/lib</outputDirectory>
-			<includes>
+			<!-- includes>
 				<include>*.jar</include>
-			</includes>
+				<include>*.dll</include>
+			</includes> -->
 		</fileSet>
 		<!-- 把项目自己编译出来的jar文件，打包进zip文件的根目录 -->
 		<fileSet>

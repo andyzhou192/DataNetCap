@@ -18,8 +18,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 for %%i in (%cd%\lib\*.jar) do  set CLASSPATH=!CLASSPATH!;%%i
 echo !CLASSPATH!
 set path==%path%;%cd%\lib
-java -classpath %CLASSPATH% com.Main
-::java -classpath !CLASSPATH! -jar %cd%\lib\DataNetCap.jar
+java -classpath %CLASSPATH% com.net.Main
 :end
 pause
 ::exit
