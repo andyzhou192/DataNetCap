@@ -20,5 +20,5 @@ echo !CLASSPATH!
 set path==%path%;%cd%\lib
 java -classpath %CLASSPATH% com.net.Main
 :end
-pause
+::pause
 ::exit

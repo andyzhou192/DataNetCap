@@ -40,6 +40,9 @@
 		<fileSet>
 			<directory>${project.basedir}/software</directory>
 			<outputDirectory>/software</outputDirectory>
+			<excludes>
+				<exclude>/software/windows/JpcapSetup-0.7.exe</exclude>
+			</excludes>
 		</fileSet>
 		<fileSet>
 			<directory>${project.basedir}/bin</directory>

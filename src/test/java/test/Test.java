@@ -20,7 +20,11 @@ public class Test {
 //		//c.getGenericType(); //得到泛型类型
 		
 //		deleteFolder("D:\\workspace\\JavaNetCap2\\target");
-		run_cmd("exts/create_maven_project.bat");
+//		run_cmd("exts/create_maven_project.bat");
+		String str = "abc\r\nxyz";
+		System.out.println("------------");
+		System.out.println(str.substring(str.indexOf("\r\n") + 2, str.length()));
+		System.out.println("============");
 	}
 
 	public static void run_cmd(String strcmd) { //

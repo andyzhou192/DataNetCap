@@ -90,6 +90,12 @@
 			<artifactId>httpmime</artifactId>
 			<version>4.5.3</version>
 		</dependency>
+		<!-- @Setter和@Getter两个注解依赖包 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>[1.16.18,)</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
@@ -135,7 +141,7 @@
 								party jar into the Lib directory, so the classpath prefix is lib/ -->
 							<classpathPrefix>lib/</classpathPrefix>
 							<!-- application's main class -->
-							<mainClass>com.net.Main</mainClass>
+							<mainClass>com.client.Main</mainClass>
 						</manifest>
 						<!-- 给清单文件添加键值对(配置文件外置) -->
 						<!-- manifestEntries>
@@ -168,6 +174,56 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			
+			<!-- http://www.mojohaus.org/appassembler/appassembler-maven-plugin/index.html -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.10</version>
+				<configuration>
+					<!-- 生成linux, windows两种平台的执行脚本 -->
+					<platforms>
+						<platform>windows</platform>
+						<!-- <platform>unix</platform> -->
+					</platforms>
+					<!-- 确认后缀 -->
+					<binFileExtensions>
+						<unix>.bat</unix>
+						<!-- <unix>.sh</unix> -->
+					</binFileExtensions>
+					<!-- 根目录 -->
+					<assembleDirectory>${project.build.directory}/DataNetCap</assembleDirectory>
+					<!-- 打包的jar，以及maven依赖的jar放到这个目录里面 -->
+					<repositoryName>lib</repositoryName>
+					<!-- 可执行脚本的目录 -->
+					<binFolder>bin</binFolder>
+					<!-- 配置文件的目标目录 -->
+					<configurationDirectory>conf</configurationDirectory>
+					<!-- 拷贝配置文件到上面的目录中 -->
+					<copyConfigurationDirectory>true</copyConfigurationDirectory>
+					<!-- 从哪里拷贝配置文件 (默认src/main/config) -->
+					<configurationSourceDirectory>src/main/resources</configurationSourceDirectory>
+					<!-- lib目录中jar的存放规则，默认是${groupId}/${artifactId}的目录格式，flat表示直接把jar放到lib目录 -->
+					<repositoryLayout>flat</repositoryLayout>
+					<encoding>UTF-8</encoding>
+					<logsDirectory>logs</logsDirectory>
+					<tempDirectory>tmp</tempDirectory>
+					<programs>
+						<program>
+							<id>start-up</id>
+							<!-- 启动类 -->
+							<mainClass>com.client.Main</mainClass>
+							<jvmSettings>
+								<extraArguments>
+									<extraArgument>-server</extraArgument>
+									<extraArgument>-Xmx256M</extraArgument>
+									<extraArgument>-Xms256M</extraArgument>
+								</extraArguments>
+							</jvmSettings>
+						</program>
+					</programs>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
