@@ -9,7 +9,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 /**
  * 
- * @author zhouyelin@chinamobile.com
+ * @author sifuma@163.com
  *
  */
 public class LogUtil {

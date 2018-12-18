@@ -14,7 +14,7 @@ import java.io.OutputStream;
 
 /**
  * 
- * @author zhouyelin@chinamobile.com
+ * @author sifuma@163.com
  *
  */
 

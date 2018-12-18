@@ -8,7 +8,7 @@ import com.client.common.util.StringUtil;
 
 /**
  * 
- * @author zhouyelin@chinamobile.com
+ * @author sifuma@163.com
  *
  */
 public final class Constants {
